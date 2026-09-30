@@ -1,91 +1,89 @@
-# 📚 Book Manager — Grupo 44
+# Book Manager — Grupo 44
 
-Sistema de gestión de inventario para una librería, desarrollado en **Python** como parte del **Sprint 1**.
+## Sprint 1
 
-El proyecto permite administrar libros, precios, stock y diferentes datos asociados al catálogo, aplicando conceptos de **Programación Orientada a Objetos** y **persistencia de datos mediante archivos CSV**.
+Aplicación de consola en Python para gestionar el inventario de una librería.
 
----
+## Objetivo
 
-## 🚀 Sprint 1
+Aplicar programación orientada a objetos y persistencia en archivos CSV para
+administrar libros, géneros, editoriales, monedas, precios, stock y cotizaciones.
 
-En esta primera etapa se desarrolla una aplicación de consola orientada a la gestión integral del inventario de una librería.
+## Introducción y contexto
 
-El sistema busca centralizar la información de los libros y facilitar operaciones relacionadas con precios, monedas, cotizaciones y stock.
+Una librería necesita modernizar su inventario y gestionar precios expresados
+en distintas monedas. El proyecto incorpora cotizaciones del dólar guardadas,
+consultas a DolarAPI a pedido y comparación de precios con el catálogo de Cúspide.
 
----
+## Organización
 
-## 🎯 Objetivo
+El código se incorpora por ejercicios sobre la rama Sprint_1. Cada ejercicio
+registra sus cambios en CHANGELOG.md. La aplicación incluye las capas de entidades, repositorios, servicios, precarga y consola.
 
-El objetivo principal del proyecto es aplicar los conceptos vistos durante la cursada mediante el desarrollo de una solución que permita gestionar:
+## Entorno
 
-- 📖 Libros
-- 🏷️ Géneros
-- 🏢 Editoriales
-- 💱 Monedas
-- 💰 Precios
-- 📦 Stock
-- 📈 Cotizaciones
+Python 3.11 y dependencias declaradas en requirements.txt.
 
-La información se almacena utilizando archivos **CSV**, permitiendo conservar los datos entre ejecuciones del programa.
+## Instalación y ejecución en Windows / PowerShell
 
----
+Desde la raíz del repositorio:
 
-## 💡 Contexto
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
 
-Una librería necesita modernizar la forma en la que administra su inventario.
+Para iniciar:
 
-Además de gestionar libros y disponibilidad de stock, el sistema debe contemplar productos cuyos precios pueden estar expresados en distintas monedas.
+```powershell
+cd src
+..\.venv\Scripts\python.exe -m book_manager.main
+```
 
-Para resolver esta necesidad, **Book Manager** incorpora diferentes fuentes de información para trabajar con precios y cotizaciones.
+Al terminar, `cd ..` vuelve a la raíz para trabajar con Git. La primera ejecución
+carga los datos iniciales en `data/`. Esta carpeta se genera localmente y no se
+versiona. Los CSV iniciales se conservan en `src/book_manager/migrations/csv/`.
 
----
+Opciones (desde `src`):
 
-## 💵 Cotizaciones y comparación de precios
+- `--sin-menu`: prepara el sistema y termina sin abrir la consola.
+- `--precargar`: agrega los registros iniciales que falten; no reemplaza los existentes.
+- `--datos ../work/prueba`: utiliza otra carpeta para los datos de funcionamiento.
 
-El proyecto contempla:
+El resumen se muestra únicamente al elegir la opción 12. Inventario: opción 11.
+CRUD: opciones 1 a 8. Conversiones: opción 9. Histórico: opción 10.
 
-- Cotizaciones del dólar almacenadas localmente.
-- Consulta de cotizaciones actualizadas mediante **DolarAPI**.
-- Conversión y manejo de precios en diferentes monedas.
-- Comparación de precios con el catálogo online de **Cúspide**.
+## Cotizaciones y fuentes externas
 
-Esto permite contar con información de referencia para analizar y actualizar los precios de los libros.
+`monedas.csv` tiene la columna `cotizacion_ars`: ARS por una unidad de moneda.
+ARS vale 1; USD deja ese campo vacío porque utiliza el histórico de cotizaciones.
+Las demás monedas tienen referencias fijas del 28/09/2026, tomadas una sola vez de
+[Frankfurter](https://frankfurter.dev/), calculadas como USD/ARS dividido por
+USD/moneda y guardadas con seis decimales. La aplicación no consulta Frankfurter.
+Son referencias fijas, no valores actualizados automáticamente ni precios
+de compra o venta garantizados.
 
----
+Al iniciar, se sincronizan esas tasas por código sin reemplazar el catálogo.
+La pantalla muestra dos decimales. USD se muestra usando la última cotización
+oficial guardada; abrir Monedas no consulta internet.
 
-## 🛠️ Tecnologías utilizadas
+La opción 13 consulta [DolarAPI](https://dolarapi.com/) y pide confirmación antes
+de guardar el valor de venta, con la fecha de actualización informada por la
+fuente en horario argentino. Consultar no obliga a guardar.
 
-- **Python**
-- **Programación Orientada a Objetos**
-- **CSV**
-- **DolarAPI**
-- Consultas a información externa
-- Aplicación ejecutada desde consola
+La opción 14 compara con el catálogo público de [Cúspide](https://cuspide.com/)
+por ISBN. Requiere conexión y que el libro esté disponible en el catálogo de
+la fuente. No modifica los precios locales ni incluye gastos de envío.
 
----
+La conversión usa `importe * tasa_origen / tasa_destino`, pasando por ARS y
+redondeando a dos decimales. Si interviene USD, pide tipo y fecha y utiliza el
+registro guardado para esa combinación. Las otras monedas usan su tasa fija.
 
-## 📂 Funcionalidades principales
+Los precios y cotizaciones iniciales son datos de demostración. Los tipos
+Simulación A, B y C completan los datos de prueba y no tienen consulta externa.
 
-El sistema permite gestionar la información necesaria para mantener actualizado el catálogo de una librería, incluyendo:
+## Entrega
 
-- Alta y consulta de libros.
-- Administración de géneros y editoriales.
-- Gestión de monedas.
-- Manejo de precios.
-- Control de stock.
-- Registro de cotizaciones.
-- Consulta de cotización del dólar.
-- Comparación de precios con fuentes externas.
-
----
-
-## 👥 Grupo 44
-
-- Cristian Vera
-- Dario Verdún
-- Sergio Sanchez
-- Eduardo Saldivia
-
----
-
-> 📌 **Book Manager** busca integrar los conceptos de programación, persistencia de datos y consumo de información externa en una solución práctica para la gestión de una librería.
+El archivo solicitado por la consigna es `01_Book_Manager_Grupo_44.ipynb`,
+completado sobre la plantilla original y ejecutado sin errores. El repositorio
+y esta documentación acompañan ese trabajo; no reemplazan el notebook.

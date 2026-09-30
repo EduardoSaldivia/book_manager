@@ -1,5 +1,11 @@
 # Registro de cambios
 
+## [Ejercicio 7] Integración y ejecución
+
+- Conexión de repositorios, servicios, precarga y consola en main.py.
+- Opciones --precargar, --sin-menu y --datos; precarga en el primer inicio.
+- README con instrucciones para ejecutar el proyecto y comportamiento de las cotizaciones.
+
 ## [Ejercicio 6] Interfaz de consola
 
 - Menús para los ocho CRUD, conversiones, histórico e inventario.
