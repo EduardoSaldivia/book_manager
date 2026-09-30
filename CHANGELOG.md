@@ -2,7 +2,11 @@
 
 ## [Día 5] ...
 
-## [Día 4] ...
+## [Día 4] Servicios y consultas externas
+
+- Reglas de negocio, validación de relaciones y protección de borrados.
+- Conversiones con cotizaciones guardadas para USD y tasas fijas para otras monedas.
+- Clientes de DolarAPI y del catálogo público de Cúspide.
 
 ## [Día 3] Repositorios y persistencia CSV
 
