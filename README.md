@@ -81,7 +81,10 @@ El sistema permite gestionar la información necesaria para mantener actualizado
 
 ## 👥 Grupo 44
 
-Proyecto desarrollado como trabajo grupal correspondiente al **Sprint 1**.
+- Cristian Vera
+- Dario Verdún
+- Sergio Sanchez
+- Eduardo Saldivia
 
 ---
 
