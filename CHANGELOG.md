@@ -1,5 +1,10 @@
 # Registro de cambios
 
+## [Día 8] Sustitución de APIs por JSONs
+
+- Lectura de cotizaciones y del catálogo de Cúspide desde archivos JSON locales en lugar de DolarAPI y la web de Cúspide.
+- Módulo común para leer y validar los JSON; se quitó la dependencia de requests.
+
 ## [Día 7] Integración y ejecución
 
 - Conexión de repositorios, servicios, precarga y consola en main.py.
