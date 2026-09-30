@@ -5,11 +5,11 @@ import shutil
 import sys
 import textwrap
 from dataclasses import dataclass
-from datetime import date, timedelta, timezone
-from book_manager.services.dolar_api import ClienteDolarAPI
+from datetime import date
+from book_manager.services.dolar_json import LectorCotizacionesJSON
 from decimal import Decimal, InvalidOperation
 from typing import Any, Callable
-from book_manager.services.cuspide_api import ClienteCuspideAPI
+from book_manager.services.cuspide_json import LectorCuspideJSON
 
 from book_manager.entities import entities as entidades
 from book_manager.services.services import (
@@ -501,7 +501,7 @@ def _menu(
 
 def _banner() -> None:
     """Encabezado de bienvenida."""
-    interior = min(_ancho() - 4, 58)
+    interior = _ancho() - 2
     color = "cian"
     borde = _estilo(_s("doble_vertical"), color)
     horizontal = _s("doble_horizontal") * interior
@@ -1146,6 +1146,7 @@ class Consola:
         filas = []
         total = 0
         sin_registro = 0
+        sin_ejemplares = 0
 
         stock_por_libro = {
             registro.libro.id: registro
@@ -1164,6 +1165,8 @@ class Consola:
                 sin_registro += 1
             else:
                 total += stock.cantidad
+                if stock.cantidad == 0:
+                    sin_ejemplares += 1
 
             filas.append([str(libro.id), libro.titulo, cantidad])
 
@@ -1193,6 +1196,7 @@ class Consola:
         print()
         _nota(
             f"Total de ejemplares: {total} {_s('punto')} "
+            f"Libros sin ejemplares: {sin_ejemplares} {_s('punto')} "
             f"Libros sin registro de stock: {sin_registro}"
         )
 
@@ -1224,58 +1228,35 @@ class Consola:
             "registro(s)"
         )
 
-    def _consultar_dolar_online(self) -> None:
-        """Consulta DolarAPI y permite guardar el valor de venta."""
-        equivalencias = {
-            "oficial": "oficial",
-            "blue": "blue",
-            "mep": "bolsa",
-            "bolsa": "bolsa",
-            "ccl": "contadoconliqui",
-            "contado con liquidación": "contadoconliqui",
-            "tarjeta": "tarjeta",
-            "mayorista": "mayorista",
-            "cripto": "cripto",
-        }
-
+    def _importar_cotizacion_json(self) -> None:
+        """Lee una cotización del JSON y pide permiso antes de guardarla."""
         self._listar(self._modelos["tipos"])
         tipo_id = self._pedir_id("Identificador del tipo")
-
-        servicio_tipos = self._modelos["tipos"].servicio
-        tipo = servicio_tipos.leer_por_id(tipo_id)
+        tipo = self._modelos["tipos"].servicio.leer_por_id(tipo_id)
 
         if tipo is None:
             raise ValueError("No existe ese tipo de cotización.")
 
-        casa = equivalencias.get(tipo.nombre.strip().casefold())
-
-        if casa is None:
+        _progreso("Leyendo cotizaciones.json...")
+        externa = LectorCotizacionesJSON().consultar(tipo_id)
+        if externa.nombre.casefold() != tipo.nombre.strip().casefold():
             raise ValueError(
-                "Ese tipo no tiene una consulta disponible en DolarAPI."
+                "El nombre del tipo en el JSON no coincide con el registrado."
             )
-
-        _progreso("Consultando DolarAPI...")
-        externa = ClienteDolarAPI().consultar(casa)
-
-        zona_argentina = timezone(timedelta(hours=-3))
-        actualizada = externa.actualizada.astimezone(zona_argentina)
-        fecha = actualizada.date()
+        fecha = externa.fecha
 
         _panel(
-            "Cotización recibida",
+            "COTIZACIÓN DEL DÍA",
             _pares(
                 {
-                    "Fuente": "DolarAPI",
                     "Tipo": externa.nombre,
-                    "Compra": f"{externa.compra} ARS por USD",
-                    "Venta": f"{externa.venta} ARS por USD",
-                    "Actualización en Argentina": actualizada.isoformat(),
+                    "Valor": f"{externa.valor:.2f} ARS por USD",
+                    "Fecha del dato": fecha.isoformat(),
                 },
-                {"Venta": ("verde", "negrita")},
+                {"Valor": ("verde", "negrita")},
             ),
             "verde",
         )
-        _nota("Es la última cotización publicada por la fuente.")
         _info(f"Fecha que se guardará: {fecha.isoformat()}")
 
         servicio = self._modelos["cotizaciones"].servicio
@@ -1287,13 +1268,13 @@ class Consola:
                 salto=True,
             )
 
-            if existente.valor == externa.venta:
-                _info("El valor de venta coincide. No hay cambios.")
+            if existente.valor == externa.valor:
+                _info("El valor del archivo coincide. No hay cambios.")
                 return
 
-            pregunta = "¿Reemplazarlo por el valor de venta recibido? (s/n)"
+            pregunta = "¿Reemplazarlo por el valor del JSON? (s/n)"
         else:
-            pregunta = "¿Guardar el valor de venta recibido? (s/n)"
+            pregunta = "¿Guardar el valor del JSON? (s/n)"
 
         print()
         confirmar = self._leer(pregunta, "n")
@@ -1305,7 +1286,7 @@ class Consola:
         cotizacion = entidades.CotizacionDolar(
             tipo,
             fecha,
-            externa.venta,
+            externa.valor,
         )
 
         if existente is None:
@@ -1322,7 +1303,7 @@ class Consola:
         )
 
     def _comparar_precio_cuspide(self) -> None:
-        """Compara un precio local con Cúspide utilizando el mismo ISBN."""
+        """Compara un precio local con el catálogo JSON por ISBN."""
         self._listar(self._modelos["precios"])
         precio_id = self._pedir_id("Identificador del precio")
 
@@ -1336,42 +1317,27 @@ class Consola:
             "Libro local",
             _pares({"Título": precio.libro.titulo, "ISBN": precio.libro.isbn}),
         )
-        _progreso("Consultando Cúspide...")
+        _progreso("Leyendo precios_cuspide.json...")
 
-        externo = ClienteCuspideAPI().consultar_por_isbn(
+        externo = LectorCuspideJSON().consultar_por_isbn(
             precio.libro.isbn
         )
 
         if externo is None:
             _aviso(
-                "No se encontró ese ISBN en el catálogo de Cúspide.",
+                "No se encontró ese ISBN en el catálogo JSON.",
                 salto=True,
             )
             _nota("No se realizó la comparación.")
             return
 
-        zona_argentina = timezone(timedelta(hours=-3))
-        momento = externo.consultado.astimezone(zona_argentina)
-
         _panel(
-            "Cúspide",
+            "Catálogo de Cúspide",
             _pares(
                 {
-                    "Libro en Cúspide": externo.titulo,
-                    "Precio publicado": f"{externo.precio:.2f} ARS",
-                    "Disponibilidad informada": (
-                        "Con stock" if externo.disponible else "Sin stock"
-                    ),
-                    "Consulta realizada": momento.isoformat(),
-                    "Fuente": externo.url,
-                },
-                {
-                    "Disponibilidad informada": (
-                        ("verde", "negrita")
-                        if externo.disponible
-                        else ("rojo", "negrita")
-                    ),
-                    "Fuente": ("azul",),
+                    "Libro de referencia": externo.titulo,
+                    "Precio en el JSON": f"{externo.precio:.2f} ARS",
+                    "Fecha del catálogo": externo.actualizada.isoformat(),
                 },
             ),
             "magenta",
@@ -1409,7 +1375,7 @@ class Consola:
                     f"{precio.importe:.2f} {precio.moneda.codigo}"
                 ),
                 "Precio local en pesos": f"{importe_local:.2f} ARS",
-                "Precio de Cúspide": f"{externo.precio:.2f} ARS",
+                "Precio de referencia": f"{externo.precio:.2f} ARS",
             }
         )
 
@@ -1436,7 +1402,7 @@ class Consola:
                 _envolver(
                     f"{_s('sube')} Nuestro precio es {diferencia:.2f} ARS "
                     f"más alto ({porcentaje:.2f}% sobre el precio de "
-                    "Cúspide).",
+                    "referencia).",
                     "amarillo",
                     "negrita",
                 )
@@ -1446,7 +1412,7 @@ class Consola:
                 _envolver(
                     f"{_s('baja')} Nuestro precio es "
                     f"{abs(diferencia):.2f} ARS más bajo "
-                    f"({abs(porcentaje):.2f}% por debajo de Cúspide).",
+                    f"({abs(porcentaje):.2f}% por debajo de la referencia).",
                     "verde",
                     "negrita",
                 )
@@ -1461,8 +1427,6 @@ class Consola:
             )
 
         _panel("Comparación de precios", lineas)
-        _nota("La comparación no incluye gastos de envío.")
-        _nota("Los precios guardados no fueron modificados.")
 
     def ejecutar(self) -> None:
         """Mantiene el menú principal hasta que el usuario sale."""
@@ -1492,8 +1456,8 @@ class Consola:
                                 ("10", "Histórico de cotizaciones", "magenta"),
                                 ("11", "Inventario", "magenta"),
                                 ("12", "Resumen del sistema", "magenta"),
-                                ("13", "Consultar dólar en vivo", "magenta"),
-                                ("14", "Comparar con Cúspide en vivo", "magenta"),
+                                ("13", "Importar cotización a los datos", "magenta"),
+                                ("14", "Comparar precios con Cúspide", "magenta"),
                             ],
                         ),
                     ],
@@ -1521,7 +1485,7 @@ class Consola:
                     elif opcion == "12":
                         self.mostrar_resumen()
                     elif opcion == "13":
-                        self._consultar_dolar_online()
+                        self._importar_cotizacion_json()
                     elif opcion == "14":
                         self._comparar_precio_cuspide()
                     else:

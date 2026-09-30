@@ -45,11 +45,11 @@ Para resolver esta necesidad, **Book Manager** incorpora diferentes fuentes de i
 El proyecto contempla:
 
 - Cotizaciones del dólar almacenadas localmente.
-- Consulta de cotizaciones actualizadas mediante **DolarAPI**.
+- Lectura de cotizaciones desde un archivo **JSON local**, con confirmación antes de guardarlas.
 - Conversión y manejo de precios en diferentes monedas.
-- Comparación de precios con el catálogo online de **Cúspide**.
+- Comparación de precios por ISBN con el archivo local **precios_cuspide.json**.
 
-Esto permite contar con información de referencia para analizar y actualizar los precios de los libros.
+El JSON de cotizaciones contiene referencias de Dolarito y tres escenarios sintéticos identificados como Simulación A, B y C. El catálogo JSON contiene la tabla de precios de Cúspide aportada por el grupo. Los archivos indican su fuente y fecha; son copias locales que no se actualizan automáticamente. El sistema los lee sin consultar API ni conectarse a internet.
 
 ---
 
@@ -58,8 +58,8 @@ Esto permite contar con información de referencia para analizar y actualizar lo
 - **Python**
 - **Programación Orientada a Objetos**
 - **CSV**
-- **DolarAPI**
-- Consultas a información externa
+- **JSON**
+- Lectura de archivos JSON locales
 - Aplicación ejecutada desde consola
 
 ---
@@ -74,8 +74,8 @@ El sistema permite gestionar la información necesaria para mantener actualizado
 - Manejo de precios.
 - Control de stock.
 - Registro de cotizaciones.
-- Consulta de cotización del dólar.
-- Comparación de precios con fuentes externas.
+- Consulta de cotizaciones del dólar desde JSON.
+- Comparación de precios con un catálogo JSON local.
 
 ---
 
@@ -88,4 +88,4 @@ El sistema permite gestionar la información necesaria para mantener actualizado
 
 ---
 
-> 📌 **Book Manager** busca integrar los conceptos de programación, persistencia de datos y consumo de información externa en una solución práctica para la gestión de una librería.
+> 📌 **Book Manager** busca integrar los conceptos de programación, persistencia de datos y lectura de datos JSON locales en una solución práctica para la gestión de una librería.

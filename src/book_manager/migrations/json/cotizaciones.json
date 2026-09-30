@@ -1,0 +1,90 @@
+{
+  "fuente": "Referencias de Dolarito del 30/09/2026. Simulación A, B y C son datos sintéticos.",
+  "referencia_historica": "https://www.dolarito.ar/cotizaciones-historicas/oficial",
+  "fuente_valores": "https://www.dolarito.ar/cotizacion/dolar-hoy",
+  "fecha_consulta": "2026-09-30",
+  "criterio": "Valor vendedor o valor único mostrado para MEP/CCL. Referencias fijas; no se actualizan solas.",
+  "nota": "Los puntos del gráfico histórico no se extrajeron. Los tipos 1 a 7 corresponden a la tabla consultada; los tipos 8 a 10 son simulaciones, no cotizaciones de mercado.",
+  "cotizaciones": [
+    {
+      "tipo_id": 1,
+      "nombre": "Oficial",
+      "fecha": "2026-09-30",
+      "valor": "1540.00",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 2,
+      "nombre": "Blue",
+      "fecha": "2026-09-30",
+      "valor": "1560.00",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 3,
+      "nombre": "MEP",
+      "fecha": "2026-09-30",
+      "valor": "1541.69",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 4,
+      "nombre": "CCL",
+      "fecha": "2026-09-30",
+      "valor": "1611.07",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 5,
+      "nombre": "Tarjeta",
+      "fecha": "2026-09-30",
+      "valor": "2002.00",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 6,
+      "nombre": "Mayorista",
+      "fecha": "2026-09-30",
+      "valor": "1518.00",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 7,
+      "nombre": "Cripto",
+      "fecha": "2026-09-30",
+      "valor": "1605.20",
+      "sintetica": false,
+      "origen": "Referencia publicada por Dolarito"
+    },
+    {
+      "tipo_id": 8,
+      "nombre": "Simulación A",
+      "fecha": "2026-09-30",
+      "valor": "1463.00",
+      "sintetica": true,
+      "origen": "Escenario de prueba: oficial de referencia multiplicado por 0.95"
+    },
+    {
+      "tipo_id": 9,
+      "nombre": "Simulación B",
+      "fecha": "2026-09-30",
+      "valor": "1540.00",
+      "sintetica": true,
+      "origen": "Escenario de prueba: oficial de referencia multiplicado por 1.00"
+    },
+    {
+      "tipo_id": 10,
+      "nombre": "Simulación C",
+      "fecha": "2026-09-30",
+      "valor": "1617.00",
+      "sintetica": true,
+      "origen": "Escenario de prueba: oficial de referencia multiplicado por 1.05"
+    }
+  ]
+}

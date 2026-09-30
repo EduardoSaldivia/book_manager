@@ -1,0 +1,808 @@
+{
+  "fuente": "Precios de Cúspide aportados por el Grupo 44; copia local, sin consulta en vivo.",
+  "fecha_actualizacion": "2026-09-30",
+  "nota_fecha": "Fecha de incorporación de la tabla al JSON; no indica cuándo Cúspide publicó esos precios.",
+  "nota_disponibilidad": "La tabla recibida no informa stock; disponible queda en null.",
+  "libros": [
+    {
+      "libro_id": 1,
+      "isbn": "9789504998655",
+      "titulo": "Una buena vida",
+      "precio": "35010.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 2,
+      "isbn": "9789507302534",
+      "titulo": "Murdoku: 80 acertijos de lógica y asesinatos",
+      "precio": "34315.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 3,
+      "isbn": "9789506446567",
+      "titulo": "Antes de que se enfríe el café",
+      "precio": "40152.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 4,
+      "isbn": "9789874132017",
+      "titulo": "Al final mueren los dos",
+      "precio": "17100.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 5,
+      "isbn": "9789877386943",
+      "titulo": "Cadáver exquisito",
+      "precio": "42029.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 6,
+      "isbn": "9789877388534",
+      "titulo": "La paciente silenciosa",
+      "precio": "41399.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 7,
+      "isbn": "9786319005042",
+      "titulo": "Dorayaki",
+      "precio": "26910.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 8,
+      "isbn": "9788433950857",
+      "titulo": "Lo que podemos saber",
+      "precio": "46183.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 9,
+      "isbn": "9788426481955",
+      "titulo": "Mi niñera de la KGB",
+      "precio": "44519.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 10,
+      "isbn": "9786313013401",
+      "titulo": "Los días de la Constitución",
+      "precio": "40499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 11,
+      "isbn": "9789877258073",
+      "titulo": "La paciente silenciosa (bolsillo)",
+      "precio": "25469.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 12,
+      "isbn": "9789878155296",
+      "titulo": "Arriba, Messi",
+      "precio": "10710.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 13,
+      "isbn": "9789504998396",
+      "titulo": "Pantanal",
+      "precio": "29610.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 14,
+      "isbn": "9789876013963",
+      "titulo": "El gesto final",
+      "precio": "29700.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 15,
+      "isbn": "9789877693836",
+      "titulo": "La vegetariana",
+      "precio": "31499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 16,
+      "isbn": "9789877693898",
+      "titulo": "El buen mal",
+      "precio": "33898.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 17,
+      "isbn": "9789801867272",
+      "titulo": "Mi psicóloga me dijo",
+      "precio": "41912.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 18,
+      "isbn": "9788419620941",
+      "titulo": "Un gato para los días difíciles",
+      "precio": "23850.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 19,
+      "isbn": "9788433980830",
+      "titulo": "Las gratitudes",
+      "precio": "42454.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 20,
+      "isbn": "9788410989849",
+      "titulo": "Una breve historia de casi todo 2.0",
+      "precio": "45000.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 21,
+      "isbn": "9789502819075",
+      "titulo": "La vida después de entender la ansiedad",
+      "precio": "35999.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 22,
+      "isbn": "9789877354232",
+      "titulo": "Entrena tu cerebro",
+      "precio": "31499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 23,
+      "isbn": "9789500210041",
+      "titulo": "La vaca y la espinaca",
+      "precio": "21797.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 24,
+      "isbn": "9789506448394",
+      "titulo": "Ellas",
+      "precio": "45944.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 25,
+      "isbn": "9788425451447",
+      "titulo": "La sociedad del cansancio",
+      "precio": "17910.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 26,
+      "isbn": "9789566267218",
+      "titulo": "El año en que hablamos con el mar",
+      "precio": "27000.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 27,
+      "isbn": "9789504977629",
+      "titulo": "Verity",
+      "precio": "45810.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 28,
+      "isbn": "9791388111006",
+      "titulo": "Principio, medio, fin",
+      "precio": "36810.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 29,
+      "isbn": "9788433977366",
+      "titulo": "Nada se opone a la noche",
+      "precio": "26910.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 30,
+      "isbn": "9789877254587",
+      "titulo": "El extranjero",
+      "precio": "22949.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 31,
+      "isbn": "9788419822178",
+      "titulo": "La hipótesis del amor (bolsillo)",
+      "precio": "34084.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 32,
+      "isbn": "9789877694383",
+      "titulo": "Una casa sola",
+      "precio": "32849.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 33,
+      "isbn": "9789506448271",
+      "titulo": "Tierra herida",
+      "precio": "41399.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 34,
+      "isbn": "9789507302596",
+      "titulo": "Murdoku: viaje al pasado",
+      "precio": "29610.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 35,
+      "isbn": "9788426420787",
+      "titulo": "La amiga estupenda (Dos amigas 1)",
+      "precio": "42749.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 36,
+      "isbn": "9788425432026",
+      "titulo": "El hombre en busca de sentido",
+      "precio": "20610.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 37,
+      "isbn": "9788418945182",
+      "titulo": "La hipótesis del amor",
+      "precio": "43074.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 38,
+      "isbn": "9786316851024",
+      "titulo": "Cosas en todas partes",
+      "precio": "31328.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 39,
+      "isbn": "9789500771870",
+      "titulo": "Mi nombre es Emilia del Valle",
+      "precio": "43199.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 40,
+      "isbn": "9789877392227",
+      "titulo": "La asistenta",
+      "precio": "50093.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 41,
+      "isbn": "9789507880223",
+      "titulo": "Los cuatro acuerdos",
+      "precio": "38347.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 42,
+      "isbn": "9789877694130",
+      "titulo": "Distancia de rescate",
+      "precio": "32399.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 43,
+      "isbn": "9789502818818",
+      "titulo": "Deja de ser tú",
+      "precio": "24299.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 44,
+      "isbn": "9788484456810",
+      "titulo": "Este dolor no es mío",
+      "precio": "41541.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 45,
+      "isbn": "9789871524594",
+      "titulo": "El acto de crear",
+      "precio": "51206.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 46,
+      "isbn": "9789877371727",
+      "titulo": "Lenguaje argento",
+      "precio": "41999.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 47,
+      "isbn": "9789877392852",
+      "titulo": "La inquilina",
+      "precio": "49495.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 48,
+      "isbn": "9789504990437",
+      "titulo": "Montoneros",
+      "precio": "43110.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 49,
+      "isbn": "9789877352306",
+      "titulo": "El camino del artista",
+      "precio": "49587.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 50,
+      "isbn": "9789878223988",
+      "titulo": "La felicidad",
+      "precio": "32310.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 51,
+      "isbn": "9789873204722",
+      "titulo": "Moshi Moshi Cozy: Kitties & Chaos",
+      "precio": "13409.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 52,
+      "isbn": "9789508702845",
+      "titulo": "Si fuéramos eternos",
+      "precio": "39510.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 53,
+      "isbn": "9789500374743",
+      "titulo": "Pasen y lean",
+      "precio": "28800.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 54,
+      "isbn": "9786313270101",
+      "titulo": "Entre otras",
+      "precio": "24210.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 55,
+      "isbn": "9789873752131",
+      "titulo": "De animales a dioses",
+      "precio": "54416.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 56,
+      "isbn": "9789877354201",
+      "titulo": "Liderazgo espiritual",
+      "precio": "42279.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 57,
+      "isbn": "9789877257809",
+      "titulo": "Vendes o vendes",
+      "precio": "25601.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 58,
+      "isbn": "9789801837794",
+      "titulo": "50 cápsulas de amor propio",
+      "precio": "40839.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 59,
+      "isbn": "9789878153308",
+      "titulo": "El Principito mini (ilustrado por Pablo Bernasconi)",
+      "precio": "12983.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 60,
+      "isbn": "9786316620040",
+      "titulo": "Binding 13 (Los chicos de Tommen 1)",
+      "precio": "57941.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 61,
+      "isbn": "9788433998064",
+      "titulo": "Las cosas que perdimos en el fuego",
+      "precio": "30429.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 62,
+      "isbn": "9789877353808",
+      "titulo": "Todo tiene su historia",
+      "precio": "33824.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 63,
+      "isbn": "9789504992752",
+      "titulo": "76",
+      "precio": "45302.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 64,
+      "isbn": "9789504991441",
+      "titulo": "La soledad",
+      "precio": "42210.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 65,
+      "isbn": "9789873204739",
+      "titulo": "Moshi Moshi Cozy: Bonnie & Friends",
+      "precio": "16389.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 66,
+      "isbn": "9786319114997",
+      "titulo": "Chocoblox",
+      "precio": "20520.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 67,
+      "isbn": "9786313007288",
+      "titulo": "Heartstopper 6",
+      "precio": "33945.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 68,
+      "isbn": "9789500774017",
+      "titulo": "La palabra mágica",
+      "precio": "31499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 69,
+      "isbn": "9789801889441",
+      "titulo": "Cómo dejar de pensar demasiado",
+      "precio": "34830.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 70,
+      "isbn": "9789877353631",
+      "titulo": "No te creas todo lo que piensas",
+      "precio": "30599.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 71,
+      "isbn": "9789877188745",
+      "titulo": "Ikigai",
+      "precio": "25898.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 72,
+      "isbn": "9789500774642",
+      "titulo": "El error perfecto",
+      "precio": "26999.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 73,
+      "isbn": "9786319114904",
+      "titulo": "Lyna y Mandarina: una aventura en altamar",
+      "precio": "21960.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 74,
+      "isbn": "9786313012701",
+      "titulo": "Qué quedará de nosotros",
+      "precio": "44009.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 75,
+      "isbn": "9786316598097",
+      "titulo": "Ruth",
+      "precio": "38597.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 76,
+      "isbn": "9788426433589",
+      "titulo": "Colección Mafalda: 11 tomos en una lata (edición limitada)",
+      "precio": "164099.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 77,
+      "isbn": "9789877389258",
+      "titulo": "Los días de la Revolución",
+      "precio": "48059.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 78,
+      "isbn": "9786313007615",
+      "titulo": "Manifestadoras",
+      "precio": "27000.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 79,
+      "isbn": "9789507326790",
+      "titulo": "Arena no quiere dormir",
+      "precio": "25110.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 80,
+      "isbn": "9786313010448",
+      "titulo": "Powerless",
+      "precio": "38364.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 81,
+      "isbn": "9789500774659",
+      "titulo": "Conferencias reunidas (1960-1985)",
+      "precio": "40499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 82,
+      "isbn": "9788410138407",
+      "titulo": "La biblioteca de la medianoche (edición pocket)",
+      "precio": "36855.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 83,
+      "isbn": "9789502818757",
+      "titulo": "El prisionero del yerbatal",
+      "precio": "30149.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 84,
+      "isbn": "9789876709095",
+      "titulo": "Maite",
+      "precio": "43763.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 85,
+      "isbn": "9789877693232",
+      "titulo": "La clase de griego",
+      "precio": "21599.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 86,
+      "isbn": "9789877694185",
+      "titulo": "Pájaros en la boca",
+      "precio": "38410.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 87,
+      "isbn": "9789877694628",
+      "titulo": "Las iracundas",
+      "precio": "36741.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 88,
+      "isbn": "9789504992646",
+      "titulo": "El último secreto",
+      "precio": "47610.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 89,
+      "isbn": "9789877257328",
+      "titulo": "Catedrales",
+      "precio": "27404.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 90,
+      "isbn": "9786313130962",
+      "titulo": "La princesa de las pampas",
+      "precio": "28800.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 91,
+      "isbn": "9788416440047",
+      "titulo": "Noches blancas",
+      "precio": "36810.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 92,
+      "isbn": "9789878266961",
+      "titulo": "Las indignas",
+      "precio": "31499.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 93,
+      "isbn": "9789500218146",
+      "titulo": "Rozas",
+      "precio": "22798.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 94,
+      "isbn": "9789878224572",
+      "titulo": "El cuerpo lleva la cuenta",
+      "precio": "29610.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 95,
+      "isbn": "9789507883774",
+      "titulo": "Ikigai (edición vintage)",
+      "precio": "43555.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 96,
+      "isbn": "9789877801750",
+      "titulo": "Muchas vidas, muchos maestros",
+      "precio": "27449.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 97,
+      "isbn": "9789878153438",
+      "titulo": "Abremente: Messi campeón",
+      "precio": "16110.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 98,
+      "isbn": "9789878155029",
+      "titulo": "Capitanes: figuras históricas de nuestra Selección",
+      "precio": "22410.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 99,
+      "isbn": "9789878002279",
+      "titulo": "Harry Potter y la piedra filosofal",
+      "precio": "29878.00",
+      "moneda": "ARS",
+      "disponible": null
+    },
+    {
+      "libro_id": 100,
+      "isbn": "9789878120423",
+      "titulo": "Enola Holmes 1",
+      "precio": "31499.00",
+      "moneda": "ARS",
+      "disponible": null
+    }
+  ]
+}
