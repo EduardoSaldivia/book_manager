@@ -1,0 +1,101 @@
+id,isbn,titulo,autor,editorial_id,genero_id
+1,9789504998655,Una buena vida,Daniel López Rosetti,34,12
+2,9789507302534,Murdoku: 80 acertijos de lógica y asesinatos,Manuel Garand,45,16
+3,9789506446567,Antes de que se enfríe el café,Toshikazu Kawaguchi,35,1
+4,9789874132017,Al final mueren los dos,Adam Silvera,36,9
+5,9789877386943,Cadáver exquisito,Agustina Bazterrica,2,5
+6,9789877388534,La paciente silenciosa,Alex Michaelides,2,10
+7,9786319005042,Dorayaki,Durian Sukegawa,9,1
+8,9788433950857,Lo que podemos saber,Ian McEwan,5,1
+9,9788426481955,Mi niñera de la KGB,Laura Elisa Ramos,28,8
+10,9786313013401,Los días de la Constitución,Eduardo Sacheri,2,7
+11,9789877258073,La paciente silenciosa (bolsillo),Alex Michaelides,12,10
+12,9789878155296,"Arriba, Messi",Catapulta,8,17
+13,9789504998396,Pantanal,Marcos Aramburu,34,19
+14,9789876013963,El gesto final,Agustín De Luca,23,1
+15,9789877693836,La vegetariana,Han Kang,37,1
+16,9789877693898,El buen mal,Samanta Schweblin,37,3
+17,9789801867272,Mi psicóloga me dijo,Katherine Hoyer y Yulibeth R.G.,13,12
+18,9788419620941,Un gato para los días difíciles,Kiyoshi Shigematsu,31,1
+19,9788433980830,Las gratitudes,Delphine de Vigan,5,1
+20,9788410989849,Una breve historia de casi todo 2.0,Bill Bryson,38,14
+21,9789502819075,La vida después de entender la ansiedad,Sofía Calvo,20,12
+22,9789877354232,Entrena tu cerebro,Camila Sánchez Salinas,1,12
+23,9789500210041,La vaca y la espinaca,Agustina Lynch,17,4
+24,9789506448394,Ellas,Viviana Rivero,35,1
+25,9788425451447,La sociedad del cansancio,Byung-Chul Han,22,2
+26,9789566267218,El año en que hablamos con el mar,Andrés Montero,24,1
+27,9789504977629,Verity,Colleen Hoover,34,10
+28,9791388111006,"Principio, medio, fin",Valeria Luiselli,18,1
+29,9788433977366,Nada se opone a la noche,Delphine de Vigan,5,1
+30,9789877254587,El extranjero,Albert Camus,12,1
+31,9788419822178,La hipótesis del amor (bolsillo),Ali Hazelwood,10,11
+32,9789877694383,Una casa sola,Selva Almada,37,1
+33,9789506448271,Tierra herida,Gabriela Exilart,35,11
+34,9789507302596,Murdoku: viaje al pasado,Manuel Garand,45,16
+35,9788426420787,La amiga estupenda (Dos amigas 1),Elena Ferrante,28,1
+36,9788425432026,El hombre en busca de sentido,Viktor E. Frankl,22,13
+37,9788418945182,La hipótesis del amor,Ali Hazelwood,10,11
+38,9786316851024,Cosas en todas partes,Helen Longstreth,9,8
+39,9789500771870,Mi nombre es Emilia del Valle,Isabel Allende,42,1
+40,9789877392227,La asistenta,Freida McFadden,43,10
+41,9789507880223,Los cuatro acuerdos,Miguel Ruiz,47,12
+42,9789877694130,Distancia de rescate,Samanta Schweblin,37,1
+43,9789502818818,Deja de ser tú,Joe Dispenza,20,12
+44,9788484456810,Este dolor no es mío,Mark Wolynn,19,13
+45,9789871524594,El acto de crear,Rick Rubin,16,12
+46,9789877371727,Lenguaje argento,Oscar Conde,44,2
+47,9789877392852,La inquilina,Freida McFadden,43,10
+48,9789504990437,Montoneros,María O'Donnell,34,7
+49,9789877352306,El camino del artista,Julia Cameron,1,12
+50,9789878223988,La felicidad,Gabriel Rolón,7,13
+51,9789873204722,Moshi Moshi Cozy: Kitties & Chaos,Guadal,21,16
+52,9789508702845,Si fuéramos eternos,Emma Gil,29,9
+53,9789500374743,Pasen y lean,Carlos Rottemberg,27,8
+54,9786313270101,Entre otras,Adriana Riva,41,1
+55,9789873752131,De animales a dioses,Yuval Noah Harari,11,7
+56,9789877354201,Liderazgo espiritual,Esteban Bullrich,1,12
+57,9789877257809,Vendes o vendes,Grant Cardone,12,18
+58,9789801837794,50 cápsulas de amor propio,Sara Espejo,33,12
+59,9789878153308,El Principito mini (ilustrado por Pablo Bernasconi),Antoine de Saint-Exupéry,8,4
+60,9786316620040,Binding 13 (Los chicos de Tommen 1),Chloe Walsh,30,11
+61,9788433998064,Las cosas que perdimos en el fuego,Mariana Enriquez,5,3
+62,9789877353808,Todo tiene su historia,Charlie López,1,7
+63,9789504992752,76,Felipe Pigna,34,7
+64,9789504991441,La soledad,Gabriel Rolón,34,13
+65,9789873204739,Moshi Moshi Cozy: Bonnie & Friends,Guadal,21,16
+66,9786319114997,Chocoblox,Daniel Morro,26,4
+67,9786313007288,Heartstopper 6,Alice Oseman,49,15
+68,9789500774017,La palabra mágica,Isabel Allende,42,2
+69,9789801889441,Cómo dejar de pensar demasiado,Adam Tusco,13,12
+70,9789877353631,No te creas todo lo que piensas,Joseph Nguyen,1,12
+71,9789877188745,Ikigai,Fer Nizawa,25,12
+72,9789500774642,El error perfecto,Pablo Bernasconi,42,4
+73,9786319114904,Lyna y Mandarina: una aventura en altamar,Lyna Vallejos,26,4
+74,9786313012701,Qué quedará de nosotros,Eduardo Sacheri,2,1
+75,9786316598097,Ruth,Adriana Riva,41,1
+76,9788426433589,Colección Mafalda: 11 tomos en una lata (edición limitada),Quino,28,15
+77,9789877389258,Los días de la Revolución,Eduardo Sacheri,2,7
+78,9786313007615,Manifestadoras,Anto Bian,48,12
+79,9789507326790,Arena no quiere dormir,Jimena Le Bellot,15,4
+80,9786313010448,Powerless,Lauren Roberts,3,6
+81,9789500774659,Conferencias reunidas (1960-1985),Jorge Luis Borges,42,2
+82,9788410138407,La biblioteca de la medianoche (edición pocket),Matt Haig,4,1
+83,9789502818757,El prisionero del yerbatal,Federico Andahazi,20,1
+84,9789876709095,Maite,Fernando Aramburu,46,1
+85,9789877693232,La clase de griego,Han Kang,37,1
+86,9789877694185,Pájaros en la boca,Samanta Schweblin,37,3
+87,9789877694628,Las iracundas,Julián López,37,1
+88,9789504992646,El último secreto,Dan Brown,34,10
+89,9789877257328,Catedrales,Claudia Piñeiro,12,10
+90,9786313130962,La princesa de las pampas,Gabriela Margall,14,11
+91,9788416440047,Noches blancas,Fiódor Dostoievski,32,1
+92,9789878266961,Las indignas,Agustina Bazterrica,2,5
+93,9789500218146,Rozas,Lucio V. Mansilla,17,7
+94,9789878224572,El cuerpo lleva la cuenta,Bessel van der Kolk,7,13
+95,9789507883774,Ikigai (edición vintage),Héctor García,47,12
+96,9789877801750,"Muchas vidas, muchos maestros",Brian Weiss,6,12
+97,9789878153438,Abremente: Messi campeón,Catapulta,8,4
+98,9789878155029,Capitanes: figuras históricas de nuestra Selección,Catapulta,8,4
+99,9789878002279,Harry Potter y la piedra filosofal,J. K. Rowling,40,6
+100,9789878120423,Enola Holmes 1,Nancy Springer,39,9

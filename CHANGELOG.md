@@ -1,6 +1,8 @@
 # Registro de cambios
 
-## [Día 5] ...
+## [Día 5] Datos iniciales y precarga
+
+- Ocho CSV con al menos diez registros por entidad y un catálogo de cien libros.
 
 ## [Día 4] Servicios y consultas externas
 
