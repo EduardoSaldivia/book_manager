@@ -4,7 +4,11 @@
 
 ## [Día 4] ...
 
-## [Día 3] ...
+## [Día 3] Repositorios y persistencia CSV
+
+- Interfaces y operaciones CRUD para las ocho entidades.
+- Reconstrucción de relaciones y consulta del histórico por tipo.
+- Búsquedas por identificador que construyen solo el registro solicitado.
 
 ## [Día 2] Entidades del sistema
 
