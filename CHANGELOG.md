@@ -3,6 +3,8 @@
 ## [Día 5] Datos iniciales y precarga
 
 - Ocho CSV con al menos diez registros por entidad y un catálogo de cien libros.
+- Precarga de registros ausentes sin reemplazar los existentes.
+- Sincronización de tasas fijas desde monedas.csv.
 
 ## [Día 4] Servicios y consultas externas
 
