@@ -2,6 +2,12 @@
 
 ## Sprint 2
 
+### [Ejercicio 2]
+
+- Implementación de ConexionDB con SQLAlchemy y psycopg.
+- Lectura de configuración desde .env y conexión cifrada a PostgreSQL.
+- Incorporación de métodos para comprobar y cerrar la conexión.
+
 ### [Ejercicio 1]
 
 - Preparación de la rama Sprint_2 a partir del último estado de Sprint_1.
