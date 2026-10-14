@@ -3,7 +3,10 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from sqlalchemy import URL, create_engine, text
+from contextlib import contextmanager
+from collections.abc import Iterator
 
+from sqlalchemy.orm import Session
 
 
 class ConexionDB:
@@ -64,3 +67,11 @@ class ConexionDB:
     def cerrar(self) -> None:
         """Libera las conexiones disponibles del motor."""
         self.engine.dispose()
+
+
+    @contextmanager
+    def transaccion(self) -> Iterator[Session]:
+        """Confirma los cambios si todo sale bien o los revierte si falla."""
+        with Session(self.engine) as sesion:
+            with sesion.begin():
+                yield sesion

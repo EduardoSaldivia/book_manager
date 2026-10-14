@@ -2,6 +2,12 @@
 
 ## Sprint 2
 
+### [Ejercicio 3]
+
+- Implementación del administrador de contexto transaccion.
+- Confirmación automática al finalizar y rollback ante errores.
+- Cierre de la sesión al salir del bloque de trabajo.
+
 ### [Ejercicio 2]
 
 - Implementación de ConexionDB con SQLAlchemy y psycopg.
