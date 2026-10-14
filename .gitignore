@@ -4,3 +4,6 @@ __pycache__/
 data/
 work/
 *.bak
+.env
+.env.*
+!.env.example

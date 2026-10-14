@@ -1,5 +1,18 @@
 # Registro de cambios
 
+## Sprint 2
+
+### [Ejercicio 1]
+
+- Preparación de la rama Sprint_2 a partir del último estado de Sprint_1.
+- Preparación de las carpetas database, models y migrations/sql.
+- Incorporación de dependencias, plantilla .env.example y exclusión de credenciales.
+- Actualización del README con el objetivo, la introducción y el contexto del Sprint 2.
+
+---
+
+## Sprint 1
+
 ## [Día 8] Sustitución de APIs por JSONs
 
 - Lectura de cotizaciones y del catálogo de Cúspide desde archivos JSON locales en lugar de DolarAPI y la web de Cúspide.

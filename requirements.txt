@@ -1,1 +1,4 @@
-# Solo se utiliza la biblioteca estándar de Python.
+SQLAlchemy>=2.0,<2.1
+psycopg[binary]>=3.2,<4
+python-dotenv>=1.0,<2
+requests>=2.32,<3

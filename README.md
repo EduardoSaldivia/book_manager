@@ -1,55 +1,52 @@
 # 📚 Book Manager — Grupo 44
 
-Sistema de gestión de inventario para una librería, desarrollado en **Python** como parte del **Sprint 1**.
+Sistema de gestión de inventario para una librería, desarrollado en **Python** como parte del **Sprint 2**.
 
-El proyecto permite administrar libros, precios, stock y diferentes datos asociados al catálogo, aplicando conceptos de **Programación Orientada a Objetos** y **persistencia de datos mediante archivos CSV**.
-
----
-
-## 🚀 Sprint 1
-
-En esta primera etapa se desarrolla una aplicación de consola orientada a la gestión integral del inventario de una librería.
-
-El sistema busca centralizar la información de los libros y facilitar operaciones relacionadas con precios, monedas, cotizaciones y stock.
+El proyecto permite administrar libros, precios, stock y diferentes datos asociados al catálogo, aplicando conceptos de **Programación Orientada a Objetos** y ampliando la persistencia de archivos CSV a una base de datos relacional.
 
 ---
+
+## 🚀 Sprint 2
+
+Esta entrega parte del último estado del Sprint 1 y amplía Book Manager para
+persistir sus datos en PostgreSQL, alojado en Supabase, mediante SQLAlchemy.
 
 ## 🎯 Objetivo
 
-El objetivo principal del proyecto es aplicar los conceptos vistos durante la cursada mediante el desarrollo de una solución que permita gestionar:
+Migrar los datos de los archivos CSV a tablas relacionadas, aplicando normalización,
+conexión segura y transacciones. Generar archivos SQL de inserción y adaptar los
+repositorios para realizar las operaciones del sistema sobre la base de datos.
 
-- 📖 Libros
-- 🏷️ Géneros
-- 🏢 Editoriales
-- 💱 Monedas
-- 💰 Precios
-- 📦 Stock
-- 📈 Cotizaciones
+El alcance también incluye obtener y registrar cotizaciones desde la API del dólar,
+mostrar precios en pesos y otra moneda seleccionada, y exportar precios a CSV
+para todas las monedas.
 
-La información se almacena utilizando archivos **CSV**, permitiendo conservar los datos entre ejecuciones del programa.
+## 💡 Introducción y contexto
 
----
+Una librería necesita centralizar su catálogo, precios y existencias, manteniendo
+la relación entre libros, géneros, editoriales, monedas y cotizaciones.
+La base relacional permitirá conservar la integridad de esas relaciones y
+confirmar o revertir operaciones completas mediante transacciones.
 
-## 💡 Contexto
-
-Una librería necesita modernizar la forma en la que administra su inventario.
-
-Además de gestionar libros y disponibilidad de stock, el sistema debe contemplar productos cuyos precios pueden estar expresados en distintas monedas.
-
-Para resolver esta necesidad, **Book Manager** incorpora diferentes fuentes de información para trabajar con precios y cotizaciones.
+El Sprint 1 aporta las entidades, las reglas de negocio, la consola y los datos
+de origen. La incorporación de la base de datos se realiza por ejercicios:
+la migración, los repositorios y las nuevas opciones de menú se integrarán
+en las siguientes etapas. La consola existente todavía utiliza los CSV hasta
+completar esa integración.
 
 ---
 
 ## 💵 Cotizaciones y comparación de precios
 
-El proyecto contempla:
+Funcionalidades heredadas del Sprint 1:
 
 - Cotizaciones del dólar almacenadas localmente.
 - Lectura de cotizaciones desde un archivo **JSON local**, con confirmación antes de guardarlas.
 - Conversión y manejo de precios en diferentes monedas.
 - Comparación de precios por ISBN con el archivo local **precios_cuspide.json**.
 
-El JSON de cotizaciones contiene referencias de Dolarito y tres escenarios sintéticos identificados como Simulación A, B y C. El catálogo JSON contiene la tabla de precios de Cúspide aportada por el grupo. Los archivos indican su fuente y fecha; son copias locales que no se actualizan automáticamente. El sistema los lee sin consultar API ni conectarse a internet.
+El JSON de cotizaciones contiene referencias de Dolarito y tres escenarios sintéticos identificados como Simulación A, B y C. El catálogo JSON contiene la tabla de precios de Cúspide aportada por el grupo. Los archivos indican su fuente y fecha; son copias locales que no se actualizan automáticamente. Estos lectores locales se conservan del Sprint 1. La consulta a la API del dólar
+se incorporará en el ejercicio 7 del Sprint 2.
 
 ---
 
@@ -57,6 +54,9 @@ El JSON de cotizaciones contiene referencias de Dolarito y tres escenarios sint�
 
 - **Python**
 - **Programación Orientada a Objetos**
+- **PostgreSQL en Supabase**
+- **SQLAlchemy y psycopg**
+- **python-dotenv y requests**
 - **CSV**
 - **JSON**
 - Lectura de archivos JSON locales
