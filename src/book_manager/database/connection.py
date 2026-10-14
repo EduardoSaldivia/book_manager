@@ -75,3 +75,10 @@ class ConexionDB:
         with Session(self.engine) as sesion:
             with sesion.begin():
                 yield sesion
+
+    def crear_tablas(self) -> None:
+        """Crea en la base las tablas definidas por los modelos."""
+        from book_manager.models.models import Base
+
+        with self.engine.begin() as conexion:
+            Base.metadata.create_all(conexion)

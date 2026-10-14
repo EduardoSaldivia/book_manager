@@ -2,6 +2,13 @@
 
 ## Sprint 2
 
+### [Ejercicio 4]
+
+- Definición de las ocho tablas con claves primarias, relaciones y restricciones.
+- Incorporación del método crear_tablas para crear las tablas en Supabase.
+- Incorporación de verificar_transaccion.py para comprobar el rollback con los modelos.
+- Verificación previa en Supabase: la inserción de prueba fue revertida.
+
 ### [Ejercicio 3]
 
 - Implementación del administrador de contexto transaccion.
