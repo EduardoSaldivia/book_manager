@@ -265,6 +265,79 @@ class ServicioPrecio(ServicioBase[Precio]):
         return resultado.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
 
+    def _precios_convertidos(self, destinos, tipo_id, fecha):
+        """Lee cada conjunto una vez y convierte el listado en memoria."""
+        precios = self._repositorio.leer_todos()
+        monedas = {m.id: m for m in self._repo_monedas.leer_todos()}
+        if not destinos or any(identificador not in monedas for identificador in destinos):
+            raise ValueError("Hay una moneda de destino inexistente.")
+        necesarias = set(destinos) | {p.moneda.id for p in precios}
+        cotizacion = None
+        if any(monedas[i].codigo == "USD" for i in necesarias):
+            if tipo_id is None or fecha is None:
+                raise ValueError("Indicá tipo y fecha para la cotización de USD.")
+            cotizacion = self._repo_cotizaciones.leer_por_tipo_y_fecha(tipo_id, fecha)
+            if cotizacion is None:
+                raise ValueError("No hay cotización guardada para el tipo y fecha indicados.")
+        tasas = {}
+        for identificador in necesarias:
+            moneda = monedas[identificador]
+            tasa = (Decimal("1") if moneda.codigo == "ARS" else
+                    cotizacion.valor if moneda.codigo == "USD" else moneda.cotizacion_ars)
+            if tasa is None or not tasa.is_finite() or tasa <= 0:
+                raise ValueError(f"Falta una cotización válida de {moneda.codigo} en la base.")
+            tasas[identificador] = tasa
+        filas = []
+        for precio in precios:
+            fila = {"precio_id": precio.id, "libro_id": precio.libro.id,
+                    "isbn": precio.libro.isbn, "titulo": precio.libro.titulo}
+            pesos = precio.importe * tasas[precio.moneda.id]
+            for identificador in destinos:
+                fila[monedas[identificador].codigo] = (pesos / tasas[identificador]).quantize(
+                    Decimal("0.01"), rounding=ROUND_HALF_UP
+                )
+            filas.append(fila)
+        return filas
+
+    def listar_bimonetarios(self, moneda_destino_id, tipo_id=None, fecha=None):
+        """Devuelve cada precio en ARS y en la moneda seleccionada."""
+        monedas = self._repo_monedas.leer_todos()
+        pesos = next((m for m in monedas if m.codigo == "ARS"), None)
+        if pesos is None:
+            raise ValueError("No está registrada la moneda ARS.")
+        if moneda_destino_id == pesos.id:
+            raise ValueError("Seleccioná una moneda diferente de ARS.")
+        return self._precios_convertidos([pesos.id, moneda_destino_id], tipo_id, fecha)
+
+    def exportar_precios(self, carpeta, tipo_id, fecha):
+        """Exporta todas las monedas a un CSV nuevo; no reemplaza archivos."""
+        import csv
+        from datetime import datetime
+        from pathlib import Path
+
+        monedas = self._repo_monedas.leer_todos()
+        filas = self._precios_convertidos([m.id for m in monedas], tipo_id, fecha)
+        if not filas:
+            raise ValueError("No hay precios para exportar.")
+        carpeta = Path(carpeta)
+        carpeta.mkdir(parents=True, exist_ok=True)
+        ruta = carpeta / f"precios_{datetime.now():%Y%m%d_%H%M%S_%f}.csv"
+        columnas = ["precio_id", "libro_id", "isbn", "titulo",
+                    "tipo_cotizacion_id", "fecha_cotizacion"] + [m.codigo for m in monedas]
+        with ruta.open("x", encoding="utf-8-sig", newline="") as archivo:
+            escritor = csv.DictWriter(archivo, fieldnames=columnas)
+            escritor.writeheader()
+            for fila in filas:
+                fila = dict(fila, tipo_cotizacion_id=tipo_id,
+                            fecha_cotizacion=fecha.isoformat())
+                # Evita que un texto del catálogo se interprete como fórmula.
+                for campo in ("isbn", "titulo"):
+                    if str(fila[campo]).lstrip().startswith(("=", "+", "-", "@")):
+                        fila[campo] = "'" + str(fila[campo])
+                escritor.writerow(fila)
+        return ruta
+
+
 class ServicioStock:
     """Gestiona existencias y comprueba la existencia del libro."""
 

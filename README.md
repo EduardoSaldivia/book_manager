@@ -21,7 +21,7 @@ las relaciones entre registros y confirmar o revertir operaciones completas.
 
 ## Estado de la entrega
 
-Ejercicios 1 a 7 incorporados: el servicio ya permite descargar y registrar cotizaciones por API. Las nuevas opciones de menú y exportación se incorporan en el ejercicio 8.
+Ejercicios 1 a 8 incorporados: persistencia en Supabase, migración de CSV con archivos SQL, importación de cotizaciones por API, lista bimonetaria y exportación para todas las monedas.
 
 ## Datos y cotizaciones
 

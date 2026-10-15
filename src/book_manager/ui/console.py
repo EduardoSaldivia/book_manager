@@ -1428,6 +1428,64 @@ class Consola:
 
         _panel("Comparación de precios", lineas)
 
+    def _obtener_cotizaciones_api(self) -> None:
+        _nota("Se guardará el valor de venta con la fecha de actualización en Argentina.")
+        _nota("Si ya existe ese tipo y fecha, se reemplazará su valor.")
+        if self._leer("¿Descargar y guardar las cotizaciones? (s/n)", "n").casefold() != "s":
+            return
+        _progreso("Consultando DolarAPI...")
+        lote = self._modelos["cotizaciones"].servicio.obtener_cotizaciones()
+        for cotizacion in lote:
+            print(f"  {cotizacion.tipo.nombre} | {cotizacion.fecha} | {cotizacion.valor:.2f} ARS/USD")
+        _exito(f"Se guardaron {len(lote)} cotizaciones.")
+        self._actualizar_dolar_visible()
+
+    def _seleccionar_cotizacion_guardada(self):
+        self._listar(self._modelos["tipos"])
+        tipo_id = self._pedir_id("Tipo de dólar para la conversión")
+        historico = self._modelos["cotizaciones"].servicio.leer_historico_por_tipo(tipo_id)
+        if not historico:
+            raise ValueError("Ese tipo no tiene cotizaciones guardadas.")
+        ultima = max(c.fecha for c in historico)
+        fecha = date.fromisoformat(self._leer("Fecha de cotización (AAAA-MM-DD)", ultima.isoformat()))
+        return tipo_id, fecha
+
+    def _lista_bimonetaria(self) -> None:
+        self._listar(self._modelos["monedas"])
+        moneda_id = self._pedir_id("Moneda para acompañar los precios en ARS")
+        moneda = self._modelos["monedas"].servicio.leer_por_id(moneda_id)
+        if moneda is None or moneda.codigo == "ARS":
+            raise ValueError("Seleccioná una moneda registrada distinta de ARS.")
+        servicio = self._modelos["precios"].servicio
+        precios = servicio.leer_todos()
+        if not precios:
+            _nota("No hay precios registrados.")
+            return
+        tipo_id, fecha = None, None
+        if moneda.codigo == "USD" or any(p.moneda.codigo == "USD" for p in precios):
+            tipo_id, fecha = self._seleccionar_cotizacion_guardada()
+        filas = servicio.listar_bimonetarios(moneda_id, tipo_id, fecha)
+        _titulo_seccion("Lista de precios bimonetaria")
+        if fecha is not None:
+            _nota(f"Tipo de dólar: {tipo_id} · Cotización guardada del {fecha}.")
+        tabla = [[str(f["precio_id"]), f["titulo"], f'{f["ARS"]:.2f}',
+                  f'{f[moneda.codigo]:.2f}'] for f in filas]
+        if not _tabla(["Precio ID", "Libro", "ARS", moneda.codigo], tabla):
+            for fila in filas:
+                _panel(fila["titulo"], _pares({
+                    "Precio ID": str(fila["precio_id"]), "ARS": f'{fila["ARS"]:.2f}',
+                    moneda.codigo: f'{fila[moneda.codigo]:.2f}',
+                }))
+
+    def _exportar_precios(self) -> None:
+        from pathlib import Path
+
+        tipo_id, fecha = self._seleccionar_cotizacion_guardada()
+        carpeta = Path(__file__).resolve().parents[3] / "work" / "exportaciones"
+        ruta = self._modelos["precios"].servicio.exportar_precios(carpeta, tipo_id, fecha)
+        _exito(f"Precios exportados: {ruta}")
+
+
     def ejecutar(self) -> None:
         """Mantiene el menú principal hasta que el usuario sale."""
         claves = list(self._modelos)
@@ -1458,6 +1516,9 @@ class Consola:
                                 ("12", "Resumen del sistema", "magenta"),
                                 ("13", "Importar cotización a los datos", "magenta"),
                                 ("14", "Comparar precios con Cúspide", "magenta"),
+                                ("15", "Obtener cotizaciones por API", "magenta"),
+                                ("16", "Lista de precios bimonetaria", "magenta"),
+                                ("17", "Exportar precios a CSV", "magenta"),
                             ],
                         ),
                     ],
@@ -1488,6 +1549,12 @@ class Consola:
                         self._importar_cotizacion_json()
                     elif opcion == "14":
                         self._comparar_precio_cuspide()
+                    elif opcion == "15":
+                        self._obtener_cotizaciones_api()
+                    elif opcion == "16":
+                        self._lista_bimonetaria()
+                    elif opcion == "17":
+                        self._exportar_precios()
                     else:
                         _aviso("Elegí una opción del menú.", salto=True)
 

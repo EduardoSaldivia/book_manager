@@ -2,6 +2,13 @@
 
 ## Sprint 2
 
+### [Ejercicio 8]
+
+- Incorporación de opciones de menú para obtener cotizaciones por API, listar precios bimonetarios y exportar.
+- Conversión con cotizaciones guardadas y tasas fijas de la base, sin consultas automáticas a internet.
+- Exportación de un CSV con una columna por moneda, tipo y fecha de cotización.
+- Conservación de importación JSON y comparación local con el catálogo de Cúspide.
+
 ### [Ejercicio 7]
 
 - Implementación de obtener_cotizaciones en ServicioCotizacionDolar.
