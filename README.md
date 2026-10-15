@@ -21,7 +21,7 @@ las relaciones entre registros y confirmar o revertir operaciones completas.
 
 ## Estado de la entrega
 
-Ejercicios 1 a 6 incorporados: la consola y todos los repositorios utilizan Supabase. La migración es explícita y no se ejecuta al iniciar. La API y los nuevos reportes se incorporan en los ejercicios siguientes.
+Ejercicios 1 a 7 incorporados: el servicio ya permite descargar y registrar cotizaciones por API. Las nuevas opciones de menú y exportación se incorporan en el ejercicio 8.
 
 ## Datos y cotizaciones
 

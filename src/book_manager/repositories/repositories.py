@@ -314,4 +314,16 @@ class RepositorioCotizacionDolar(RepositorioDB, IRepositorioCotizacionDolar):
 
     def eliminar(self, tipo_id, fecha):
         return self._eliminar((tipo_id, fecha))
-    
+
+    def guardar_lote(self, cotizaciones):
+        """Inserta o actualiza todo el lote; ante un error revierte el conjunto."""
+        from sqlalchemy.dialects.postgresql import insert
+
+        with self._sesion() as sesion:
+            for cotizacion in cotizaciones:
+                sentencia = insert(self.modelo).values(**self._valores(cotizacion))
+                sentencia = sentencia.on_conflict_do_update(
+                    index_elements=["tipo_id", "fecha"],
+                    set_={"valor": sentencia.excluded.valor},
+                )
+                sesion.execute(sentencia)

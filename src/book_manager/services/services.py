@@ -355,3 +355,76 @@ class ServicioCotizacionDolar:
     def eliminar(self, tipo_id: int, fecha: date) -> bool:
         """Elimina una cotización por tipo y fecha."""
         return self._repositorio.eliminar(tipo_id, fecha)
+
+    def obtener_cotizaciones(self) -> list[CotizacionDolar]:
+        """Descarga ventas de DolarAPI y guarda el lote completo en una transacción."""
+        import json
+        import os
+        import unicodedata
+        from datetime import datetime, timedelta, timezone
+        from pathlib import Path
+        from decimal import InvalidOperation
+        import requests
+        from dotenv import load_dotenv
+
+        load_dotenv(Path(__file__).resolve().parents[3] / ".env")
+        url = os.getenv("API_URL", "").strip()
+        if not url.startswith("https://"):
+            raise ValueError("Configurá API_URL con una dirección HTTPS en .env.")
+
+        try:
+            with requests.get(url, timeout=(5, 20)) as respuesta:
+                respuesta.raise_for_status()
+                datos = json.loads(respuesta.text, parse_float=Decimal)
+        except (requests.RequestException, ValueError):
+            raise ValueError("No se pudieron descargar cotizaciones válidas. No se guardó ningún cambio.") from None
+        if not isinstance(datos, list) or not datos:
+            raise ValueError("La API debe devolver una lista no vacía.")
+
+        def normalizar(texto):
+            texto = unicodedata.normalize("NFKD", texto.casefold())
+            return "".join(c for c in texto if c.isalnum() and not unicodedata.combining(c))
+
+        nombres = {
+            "oficial": {"oficial", "dolaroficial"},
+            "blue": {"blue", "dolarblue"},
+            "bolsa": {"mep", "bolsa", "dolarbolsa", "dolarmep"},
+            "contadoconliqui": {"ccl", "contadoconliqui", "contadoconliquidacion"},
+            "tarjeta": {"tarjeta", "dolartarjeta"},
+            "mayorista": {"mayorista", "dolarmayorista"},
+            "cripto": {"cripto", "dolarcripto"},
+        }
+        tipos = self._repo_tipos.leer_todos()
+        lote = []
+        vistos = set()
+        for dato in datos:
+            if not isinstance(dato, dict):
+                raise ValueError("Hay un registro inválido en la respuesta.")
+            casa = dato.get("casa")
+            if not isinstance(casa, str) or casa not in nombres:
+                raise ValueError("La API contiene una casa no contemplada. Revisá el mapeo antes de importar.")
+            candidatos = [t for t in tipos if normalizar(t.nombre) in nombres[casa]]
+            if len(candidatos) != 1:
+                raise ValueError(f"Debe existir un único tipo registrado para {casa}.")
+            try:
+                if dato.get("moneda") != "USD" or isinstance(dato.get("venta"), bool):
+                    raise ValueError("Moneda o importe inválido.")
+                valor = Decimal(str(dato["venta"]))
+                if not valor.is_finite() or not 0 < valor < Decimal("1000000000000"):
+                    raise ValueError("Venta fuera del rango admitido.")
+                if valor != valor.quantize(Decimal("0.000001")):
+                    raise ValueError("Venta con más de seis decimales.")
+                instante = datetime.fromisoformat(dato["fechaActualizacion"].replace("Z", "+00:00"))
+                if instante.tzinfo is None:
+                    raise ValueError("La fecha de actualización no tiene zona horaria.")
+                fecha = instante.astimezone(timezone(timedelta(hours=-3))).date()
+            except (KeyError, ValueError, TypeError, AttributeError, InvalidOperation):
+                raise ValueError(f"Datos inválidos en la cotización {casa}. No se guardó el lote.") from None
+            clave = (candidatos[0].id, fecha)
+            if clave in vistos:
+                raise ValueError("La API contiene cotizaciones repetidas.")
+            vistos.add(clave)
+            lote.append(CotizacionDolar(candidatos[0], fecha, valor))
+
+        self._repositorio.guardar_lote(lote)
+        return lote

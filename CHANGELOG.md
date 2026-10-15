@@ -2,6 +2,13 @@
 
 ## Sprint 2
 
+### [Ejercicio 7]
+
+- Implementación de obtener_cotizaciones en ServicioCotizacionDolar.
+- Lectura de API_URL desde .env, descarga con tiempo límite y validación de la respuesta.
+- Registro del valor de venta con fecha de actualización en Argentina.
+- Inserción o actualización del lote completo dentro de una transacción.
+
 ### [Ejercicio 6]
 
 - Sustitución de repositorios CSV por repositorios SQLAlchemy para las ocho entidades.
