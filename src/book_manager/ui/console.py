@@ -518,7 +518,7 @@ def _banner() -> None:
         ("", ()),
         ("B O O K   M A N A G E R", ("negrita",)),
         ("Grupo 44", ("cian", "negrita")),
-        ("— Sprint 1 —", ("gris",)),
+        ("— Sprint 2 —", ("gris",)),
         ("", ()),
     ):
         print("  " + borde + _estilo(texto.center(interior), *estilos) + borde)
@@ -1364,7 +1364,7 @@ class Consola:
             if fecha is not None:
                 _info(f"Cotización del dólar del día: {fecha.isoformat()}")
             else:
-                _nota("Se utilizó la cotización fija de monedas.csv.")
+                _nota("Se utilizó la cotización fija guardada en la base.")
 
         diferencia = importe_local - externo.precio
         porcentaje = diferencia / externo.precio * Decimal("100")

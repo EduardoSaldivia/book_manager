@@ -235,7 +235,7 @@ class ServicioPrecio(ServicioBase[Precio]):
             return cotizacion.valor
         if moneda.cotizacion_ars is None:
             raise ValueError(
-                f"Falta la cotización fija de {moneda.codigo} en monedas.csv."
+                f"Falta la cotización fija de {moneda.codigo} en la base de datos."
             )
         return moneda.cotizacion_ars
 
