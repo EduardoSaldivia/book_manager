@@ -163,6 +163,49 @@ def migrar_datos(carpeta_csvs: str, carpeta_sqls: str,
         if propia:
             db.cerrar()
 
+def cargar_datos_desde_sql(
+    carpeta_sqls: str,
+    conexion: ConexionDB | None = None,
+) -> list[str]:
+    """Ejecuta en orden los archivos SQL de una carpeta."""
+    carpeta = Path(carpeta_sqls)
+
+    if not carpeta.is_dir():
+        raise FileNotFoundError(f"No existe la carpeta SQL: {carpeta}")
+
+    rutas = sorted(carpeta.glob("*.sql"))
+    if not rutas:
+        raise FileNotFoundError(f"No hay archivos .sql en: {carpeta}")
+
+    propia = conexion is None
+    db = conexion if conexion is not None else ConexionDB()
+    cargados = []
+
+    try:
+        for ruta in rutas:
+            contenido = ruta.read_text(encoding="utf-8").strip()
+            if not contenido:
+                raise ValueError(f"El archivo está vacío: {ruta.name}")
+
+            # Los SQL generados tienen varias sentencias y manejan su
+            # propia transacción con BEGIN y COMMIT.
+            raw = db.engine.raw_connection()
+            try:
+                cursor = raw.cursor()
+                try:
+                    cursor.execute(contenido, prepare=False)
+                finally:
+                    cursor.close()
+            finally:
+                raw.close()
+
+            cargados.append(ruta.name)
+
+        return cargados
+    finally:
+        if propia:
+            db.cerrar()
+
 
 def ejecutar() -> None:
     parser = argparse.ArgumentParser(description="Migración del Sprint 1 a PostgreSQL.")
