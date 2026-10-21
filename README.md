@@ -1,5 +1,15 @@
 #  Book Manager — Grupo 44
 
+## Sprint 3
+
+### Objetivo
+Obtener y analizar los precios publicados en línea para nuestros libros, comparándolos con los precios internos de Book Manager.
+
+### Introducción y contexto
+En este sprint incorporamos la extracción de información de librerías con Scrapy. Los datos recolectados permitirán comparar precios, generar alertas y producir reportes para analizar a nuestros competidores.
+
+
+
 ## Sprint 2
 
 Aplicación de consola en Python para gestionar una librería. Esta entrega amplía

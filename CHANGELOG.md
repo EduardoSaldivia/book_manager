@@ -1,5 +1,14 @@
 # Registro de cambios
 
+## Sprint 3
+
+### [Ejercicio 1]
+
+- Se creó la rama Sprint_3 a partir de Sprint_2.
+- Se agregaron las carpetas iniciales para el scraper y los reportes.
+
+---
+
 ## Sprint 2
 
 ### [Ejercicio 8]
