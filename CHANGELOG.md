@@ -2,6 +2,18 @@
 
 ## Sprint 3
 
+### [Ejercicio 3]
+
+- Implementación de CuspideSpider, que busca los títulos del catálogo y limita cada búsqueda a los primeros diez resultados.
+- Validación del ISBN para aceptar únicamente la misma edición del libro.
+- Incorporación de Item Loader para limpiar los datos y convertir precios a decimales.
+- Incorporación de Pipeline para validar los registros y quitar formas de pago duplicadas.
+- Extracción de precio, imagen, medios de pago, descripción y fecha de extracción.
+
+### [Ejercicio 2]
+- Se agregó una función para ejecutar en orden los archivos SQL de migración.
+
+
 ### [Ejercicio 1]
 
 - Se creó la rama Sprint_3 a partir de Sprint_2.
