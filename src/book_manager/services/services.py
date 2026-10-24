@@ -1,6 +1,8 @@
 from datetime import date
 from decimal import Decimal, ROUND_HALF_UP
 from typing import Generic, TypeVar
+from book_manager.services.auditoria import auditar_operaciones
+
 
 from book_manager.entities.entities import (
     CotizacionDolar,
@@ -22,7 +24,7 @@ from book_manager.repositories.repositories import (
 
 T = TypeVar("T", bound=EntidadBase)
 
-
+@auditar_operaciones
 class ServicioBase(Generic[T]):
     """Coordina el CRUD y permite agregar reglas específicas."""
 
@@ -190,7 +192,7 @@ class ServicioLibro(ServicioBase[Libro]):
                 "Primero debe eliminarse el registro de stock del libro."
             )
 
-
+@auditar_operaciones
 class ServicioPrecio(ServicioBase[Precio]):
     """Gestiona precios y conversiones entre pesos y dólares."""
 
@@ -337,7 +339,7 @@ class ServicioPrecio(ServicioBase[Precio]):
                 escritor.writerow(fila)
         return ruta
 
-
+@auditar_operaciones
 class ServicioStock:
     """Gestiona existencias y comprueba la existencia del libro."""
 
@@ -376,7 +378,7 @@ class ServicioStock:
         """Elimina el registro de stock de un libro."""
         return self._repositorio.eliminar(libro_id)
 
-
+@auditar_operaciones
 class ServicioCotizacionDolar:
     """Gestiona cotizaciones y comprueba sus tipos asociados."""
 

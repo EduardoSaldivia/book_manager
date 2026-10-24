@@ -5,6 +5,8 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import date
 from sqlalchemy import Date
+from datetime import datetime
+from sqlalchemy import DateTime
 
 
 class Base(DeclarativeBase):
@@ -275,3 +277,15 @@ class CotizacionDolarModelo(Base):
             name="ck_cotizaciones_valor_valido",
         ),
     )
+
+class AuditoriaModelo(Base):
+    __tablename__ = "auditorias"
+
+    id: Mapped[int] = mapped_column(
+        Integer, primary_key=True, autoincrement=True
+    )
+    accion: Mapped[str] = mapped_column(String(160), nullable=False)
+    fecha: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
+    detalles: Mapped[str] = mapped_column(Text, nullable=False)
