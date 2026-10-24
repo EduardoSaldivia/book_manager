@@ -2,6 +2,12 @@
 
 ## Sprint 3
 
+### [Ejercicio 4]
+
+- Comparación entre precio interno y precio web scraping.
+- Umbral dinámico en ARS solicitado al usuario previo al escaneo.
+- Exportación automática del reporte de discrepancias a formato CSV para su posterior descarga y análisis.
+
 ### [Ejercicio 3]
 
 - Implementación de CuspideSpider, que busca los títulos del catálogo y limita cada búsqueda a los primeros diez resultados.
