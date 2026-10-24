@@ -2,7 +2,7 @@
 
 ## Sprint 3
 
-### [Ejercicio 5]
+### [Ejercicio 6]
 
 - Modelo `AuditoriaModelo` en `models.py` para persistir registros de auditoría (`accion`, `fecha`, `detalles`).
 - Decorador de clase `@auditar_operaciones` en `auditoria.py` que intercepta métodos públicos de los servicios y registra ejecución, parámetros, estado (`correcto` o `error`) y excepciones en transacciones dedicadas.
