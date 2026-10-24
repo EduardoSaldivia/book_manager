@@ -4,6 +4,13 @@
 
 ### [Ejercicio 5]
 
+- Modelo `AuditoriaModelo` en `models.py` para persistir registros de auditoría (`accion`, `fecha`, `detalles`).
+- Decorador de clase `@auditar_operaciones` en `auditoria.py` que intercepta métodos públicos de los servicios y registra ejecución, parámetros, estado (`correcto` o `error`) y excepciones en transacciones dedicadas.
+- Clase `ServicioAuditoria` para consultar el historial cronológico de auditorías con límite parametrizable sin auto-auditarse.
+- Decoración con `@auditar_operaciones` sobre `ServicioBase`, `ServicioPrecio`, `ServicioStock` y `ServicioCotizacionDolar` en `services.py`.
+
+### [Ejercicio 5]
+
 - Implementación de `generar_reporte_excel()` en `ServicioScraping` utilizando `openpyxl`.
 - Carga y procesamiento del JSON de extracción más reciente.
 - Estructuración de columnas requeridas: Libro, Precio interno, Precio web, Diferencia y Fecha de extracción.
