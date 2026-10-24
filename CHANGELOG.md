@@ -2,6 +2,13 @@
 
 ## Sprint 3
 
+### [Ejercicio 5]
+
+- Implementación de `generar_reporte_excel()` en `ServicioScraping` utilizando `openpyxl`.
+- Carga y procesamiento del JSON de extracción más reciente.
+- Estructuración de columnas requeridas: Libro, Precio interno, Precio web, Diferencia y Fecha de extracción.
+- Exportación automática a `src/book_manager/reportes/reporte_cuspide_*.xlsx`.
+
 ### [Ejercicio 4]
 
 - Comparación entre precio interno y precio web scraping.

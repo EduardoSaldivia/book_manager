@@ -83,5 +83,49 @@ class ServicioScraping:
         }
 
     def generar_reporte_excel(self):
-        """Se completa en el Ejercicio 5."""
-        raise NotImplementedError("Implementar en el Ejercicio 5.")
+        import json
+        from openpyxl import Workbook
+        from openpyxl.styles import Font, PatternFill
+        from openpyxl.utils import get_column_letter
+
+        archivos = sorted(
+            self.carpeta_reportes.glob("cuspide_datos_*.json"),
+            key=lambda ruta: ruta.stat().st_mtime,
+        )
+        if not archivos:
+            raise FileNotFoundError(
+                "Primero ejecutá el scraping desde el menú."
+            )
+        datos = json.loads(archivos[-1].read_text(encoding="utf-8"))
+        libro_excel = Workbook()
+        hoja = libro_excel.active
+        hoja.title = "Precios Cúspide"
+        hoja.append([
+            "Libro", "Precio interno", "Precio web",
+            "Diferencia", "Fecha de extracción",
+        ])
+        for celda in hoja[1]:
+            celda.font = Font(bold=True, color="FFFFFF")
+            celda.fill = PatternFill("solid", fgColor="234D3D")
+
+        for fila in datos:
+            interno = Decimal(str(fila["precio_interno"]))
+            web = Decimal(str(fila["precio_web"]))
+            hoja.append([
+                fila["titulo_catalogo"], float(interno), float(web),
+                float(web - interno), fila["fecha_extraccion"],
+            ])
+        for fila in hoja.iter_rows(min_row=2, min_col=2, max_col=4):
+            for celda in fila:
+                celda.number_format = '#,##0.00'
+        hoja.freeze_panes = "A2"
+        hoja.auto_filter.ref = hoja.dimensions
+        for columna in hoja.columns:
+            ancho = max(len(str(c.value or "")) for c in columna)
+            letra = get_column_letter(columna[0].column)
+            hoja.column_dimensions[letra].width = min(ancho + 2, 55)
+
+        marca = datetime.now().strftime("%Y%m%d_%H%M%S")
+        destino = self.carpeta_reportes / f"reporte_cuspide_{marca}.xlsx"
+        libro_excel.save(destino)
+        return destino
