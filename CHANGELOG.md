@@ -2,6 +2,13 @@
 
 ## Sprint 3
 
+### [Ejercicio 7]
+
+- Integración de `ServicioScraping` y `ServicioAuditoria` en `crear_aplicacion()` dentro de `main.py` y pasaje de instancias a la consola interactiva.
+- Soporte para parámetros opcionales `scraping` y `auditoria` en el constructor de la clase `Consola` en `console.py`.
+- Métodos auxiliares `_ejecutar_scraping()`, `_generar_reporte_excel()` y `_mostrar_historial_auditoria()` en la consola para interactuar con los nuevos servicios.
+- Incorporación de las opciones 18, 19 y 20 al menú principal y al despachador de selección para la ejecución de scraping con umbral en ARS, generación de reportes Excel y consulta del historial de auditoría.
+
 ### [Ejercicio 6]
 
 - Modelo `AuditoriaModelo` en `models.py` para persistir registros de auditoría (`accion`, `fecha`, `detalles`).
