@@ -311,13 +311,14 @@ class Precio(EntidadBase):
 
 
 class CotizacionDolar:
-    """Registra el valor en pesos de un dólar por tipo y fecha."""
+    """Registra los valores de compra y venta por tipo y fecha."""
 
     def __init__(
         self,
         tipo: TipoCotizacion,
         fecha: date,
-        valor: Decimal,
+        compra: Decimal,
+        venta: Decimal,
     ) -> None:
         if not isinstance(tipo, TipoCotizacion):
             raise ValueError("El tipo debe ser un objeto TipoCotizacion.")
@@ -327,7 +328,8 @@ class CotizacionDolar:
 
         self._tipo = tipo
         self._fecha = fecha
-        self.valor = valor
+        self.compra = compra
+        self.venta = venta
 
     @property
     def tipo(self) -> TipoCotizacion:
@@ -337,19 +339,37 @@ class CotizacionDolar:
     def fecha(self) -> date:
         return self._fecha
 
+    @staticmethod
+    def _validar_valor(nombre: str, valor: Decimal) -> None:
+        if not isinstance(valor, Decimal):
+            raise ValueError(f"{nombre.capitalize()} debe ser un Decimal.")
+
+        if not valor.is_finite() or valor <= 0:
+            raise ValueError(f"{nombre.capitalize()} debe ser mayor que cero.")
+
+    @property
+    def compra(self) -> Decimal:
+        return self._compra
+
+    @compra.setter
+    def compra(self, nuevo_valor: Decimal) -> None:
+        self._validar_valor("compra", nuevo_valor)
+        self._compra = nuevo_valor
+
+    @property
+    def venta(self) -> Decimal:
+        return self._venta
+
+    @venta.setter
+    def venta(self, nuevo_valor: Decimal) -> None:
+        self._validar_valor("venta", nuevo_valor)
+        self._venta = nuevo_valor
+
     @property
     def valor(self) -> Decimal:
-        return self._valor
+        """Compatibilidad: valor equivale a la cotización de venta."""
+        return self.venta
 
     @valor.setter
     def valor(self, nuevo_valor: Decimal) -> None:
-        if not isinstance(nuevo_valor, Decimal):
-            raise ValueError("El valor debe ser un objeto Decimal.")
-
-        if not nuevo_valor.is_finite():
-            raise ValueError("El valor debe ser un número finito.")
-
-        if nuevo_valor <= 0:
-            raise ValueError("El valor debe ser mayor que cero.")
-
-        self._valor = nuevo_valor
+        self.venta = nuevo_valor

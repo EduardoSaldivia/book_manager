@@ -1,12 +1,19 @@
-from sqlalchemy import CheckConstraint, Integer, Numeric, String, Text
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from __future__ import annotations
+
+from datetime import date, datetime
 from decimal import Decimal
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
-from datetime import date
-from sqlalchemy import Date
-from datetime import datetime
-from sqlalchemy import DateTime
+
+from sqlalchemy import (
+    CheckConstraint,
+    Date,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    Text,
+)
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class Base(DeclarativeBase):
@@ -28,6 +35,7 @@ class GeneroModelo(Base):
         Text,
         nullable=False,
     )
+    libros: Mapped[list["LibroModelo"]] = relationship(back_populates="genero")
 
     __table_args__ = (
         CheckConstraint("id > 0", name="ck_generos_id_positivo"),
@@ -52,6 +60,7 @@ class EditorialModelo(Base):
         Text,
         nullable=False,
     )
+    libros: Mapped[list["LibroModelo"]] = relationship(back_populates="editorial")
 
     __table_args__ = (
         CheckConstraint("id > 0", name="ck_editoriales_id_positivo"),
@@ -84,6 +93,7 @@ class MonedaModelo(Base):
         Numeric(18, 6),
         nullable=True,
     )
+    precios: Mapped[list["PrecioModelo"]] = relationship(back_populates="moneda")
 
     __table_args__ = (
         CheckConstraint("id > 0", name="ck_monedas_id_positivo"),
@@ -117,6 +127,9 @@ class TipoCotizacionModelo(Base):
     nombre: Mapped[str] = mapped_column(
         Text,
         nullable=False,
+    )
+    cotizaciones: Mapped[list["CotizacionDolarModelo"]] = relationship(
+        back_populates="tipo"
     )
 
     __table_args__ = (
@@ -164,8 +177,10 @@ class LibroModelo(Base):
         index=True,
     )
 
-    editorial: Mapped[EditorialModelo] = relationship()
-    genero: Mapped[GeneroModelo] = relationship()
+    editorial: Mapped["EditorialModelo"] = relationship(back_populates="libros")
+    genero: Mapped["GeneroModelo"] = relationship(back_populates="libros")
+    precios: Mapped[list["PrecioModelo"]] = relationship(back_populates="libro")
+    stock: Mapped["StockModelo | None"] = relationship(back_populates="libro")
 
     __table_args__ = (
         CheckConstraint(
@@ -211,8 +226,8 @@ class PrecioModelo(Base):
         nullable=False,
     )
 
-    libro: Mapped[LibroModelo] = relationship()
-    moneda: Mapped[MonedaModelo] = relationship()
+    libro: Mapped["LibroModelo"] = relationship(back_populates="precios")
+    moneda: Mapped["MonedaModelo"] = relationship(back_populates="precios")
 
     __table_args__ = (
         CheckConstraint(
@@ -241,7 +256,7 @@ class StockModelo(Base):
         nullable=False,
     )
 
-    libro: Mapped[LibroModelo] = relationship()
+    libro: Mapped["LibroModelo"] = relationship(back_populates="stock")
 
     __table_args__ = (
         CheckConstraint(
@@ -264,17 +279,25 @@ class CotizacionDolarModelo(Base):
         Date,
         primary_key=True,
     )
-    valor: Mapped[Decimal] = mapped_column(
+    compra: Mapped[Decimal] = mapped_column(
+        Numeric(18, 6),
+        nullable=False,
+    )
+    venta: Mapped[Decimal] = mapped_column(
         Numeric(18, 6),
         nullable=False,
     )
 
-    tipo: Mapped[TipoCotizacionModelo] = relationship()
+    tipo: Mapped["TipoCotizacionModelo"] = relationship(back_populates="cotizaciones")
 
     __table_args__ = (
         CheckConstraint(
-            "valor > 0 AND valor < 'Infinity'::numeric",
-            name="ck_cotizaciones_valor_valido",
+            "compra > 0 AND compra < 'Infinity'::numeric",
+            name="ck_cotizaciones_compra_valida",
+        ),
+        CheckConstraint(
+            "venta > 0 AND venta < 'Infinity'::numeric",
+            name="ck_cotizaciones_venta_valida",
         ),
     )
 

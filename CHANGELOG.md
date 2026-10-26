@@ -29,6 +29,7 @@
 - Umbral dinámico en ARS solicitado al usuario previo al escaneo.
 - Exportación automática del reporte de discrepancias a formato CSV para su posterior descarga y análisis.
 
+
 ### [Ejercicio 3]
 
 - Implementación de CuspideSpider, que busca los títulos del catálogo y limita cada búsqueda a los primeros diez resultados.
@@ -56,6 +57,7 @@
 - Conversión con cotizaciones guardadas y tasas fijas de la base, sin consultas automáticas a internet.
 - Exportación de un CSV con una columna por moneda, tipo y fecha de cotización.
 - Conservación de importación JSON y comparación local con el catálogo de Cúspide.
+- La consola permite consultar y administrar cotizaciones con sus campos de compra y venta.
 
 ### [Ejercicio 7]
 
@@ -63,6 +65,8 @@
 - Lectura de API_URL desde .env, descarga con tiempo límite y validación de la respuesta.
 - Registro del valor de venta con fecha de actualización en Argentina.
 - Inserción o actualización del lote completo dentro de una transacción.
+- La importación conserva compra y venta; las casas sin mapeo se omiten y no cancelan el resto del lote.
+- Se agregó una migración que traslada los valores anteriores a compra y venta, preservando los 17 registros.
 
 ### [Ejercicio 6]
 
@@ -84,6 +88,7 @@
 - Incorporación del método crear_tablas para crear las tablas en Supabase.
 - Incorporación de verificar_transaccion.py para comprobar el rollback con los modelos.
 - Verificación previa en Supabase: la inserción de prueba fue revertida.
+- Se completaron las relaciones bidireccionales de SQLAlchemy usando back_populates.
 
 ### [Ejercicio 3]
 

@@ -667,7 +667,8 @@ class Consola:
                         tipo="fecha",
                         editable=False,
                     ),
-                    Campo("valor", "Pesos por dólar", tipo="decimal"),
+                    Campo("compra", "Compra (ARS por dólar)", tipo="decimal"),
+                    Campo("venta", "Venta (ARS por dólar)", tipo="decimal"),
                 ),
                 con_id=False,
             ),
@@ -1292,6 +1293,7 @@ class Consola:
         cotizacion = entidades.CotizacionDolar(
             tipo,
             fecha,
+            externa.valor,
             externa.valor,
         )
 

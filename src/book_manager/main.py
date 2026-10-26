@@ -1,8 +1,9 @@
 import argparse
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
+
 from sqlalchemy.exc import SQLAlchemyError
+
 from book_manager.database.connection import ConexionDB
 from book_manager.preload_data.preload_data import PrecargaDatos
 from book_manager.repositories.repositories import (
@@ -15,6 +16,8 @@ from book_manager.repositories.repositories import (
     RepositorioStock,
     RepositorioTipoCotizacion,
 )
+from book_manager.services.auditoria import ServicioAuditoria
+from book_manager.services.scraping import ServicioScraping
 from book_manager.services.services import (
     ServicioCotizacionDolar,
     ServicioEditorial,
@@ -26,10 +29,6 @@ from book_manager.services.services import (
     ServicioTipoCotizacion,
 )
 from book_manager.ui.console import Consola
-from book_manager.services.scraping import ServicioScraping
-from book_manager.services.auditoria import ServicioAuditoria
-
-
 
 
 @dataclass
@@ -40,9 +39,12 @@ class Aplicacion:
     conexion: ConexionDB
 
 
-def crear_aplicacion(conexion=None) -> Aplicacion:
-    """Construye el sistema usando exclusivamente repositorios SQLAlchemy."""
+def crear_aplicacion(
+    conexion: ConexionDB | None = None,
+) -> Aplicacion:
+    """Construye el sistema usando repositorios SQLAlchemy."""
     db = conexion if conexion is not None else ConexionDB()
+
     repo_generos = RepositorioGenero(db)
     repo_editoriales = RepositorioEditorial(db)
     repo_monedas = RepositorioMoneda(db)
@@ -51,23 +53,12 @@ def crear_aplicacion(conexion=None) -> Aplicacion:
     repo_precios = RepositorioPrecio(db)
     repo_stock = RepositorioStock(db)
     repo_cotizaciones = RepositorioCotizacionDolar(db)
+
     servicios = {
-        "generos": ServicioGenero(
-            repo_generos,
-            repo_libros,
-        ),
-        "editoriales": ServicioEditorial(
-            repo_editoriales,
-            repo_libros,
-        ),
-        "monedas": ServicioMoneda(
-            repo_monedas,
-            repo_precios,
-        ),
-        "tipos": ServicioTipoCotizacion(
-            repo_tipos,
-            repo_cotizaciones,
-        ),
+        "generos": ServicioGenero(repo_generos, repo_libros),
+        "editoriales": ServicioEditorial(repo_editoriales, repo_libros),
+        "monedas": ServicioMoneda(repo_monedas, repo_precios),
+        "tipos": ServicioTipoCotizacion(repo_tipos, repo_cotizaciones),
         "libros": ServicioLibro(
             repo_libros,
             repo_editoriales,
@@ -81,58 +72,68 @@ def crear_aplicacion(conexion=None) -> Aplicacion:
             repo_monedas,
             repo_cotizaciones,
         ),
-        "stock": ServicioStock(
-            repo_stock,
-            repo_libros,
-        ),
+        "stock": ServicioStock(repo_stock, repo_libros),
         "cotizaciones": ServicioCotizacionDolar(
             repo_cotizaciones,
             repo_tipos,
         ),
     }
 
-    servicio_scraping = ServicioScraping()
-    servicio_auditoria = ServicioAuditoria(db)
-
     consola = Consola(
         **servicios,
-        scraping=servicio_scraping,
-        auditoria=servicio_auditoria,
+        scraping=ServicioScraping(),
+        auditoria=ServicioAuditoria(db),
     )
 
     return Aplicacion(
-        servicios,
-        consola,
-        PrecargaDatos(db),
-        db,
+        servicios=servicios,
+        consola=consola,
+        precarga=PrecargaDatos(db),
+        conexion=db,
     )
 
 
-def main(interactivo=True) -> None:
+def main(interactivo: bool = True) -> None:
+    """Inicia el menú o muestra un resumen de los registros."""
     db = ConexionDB()
+
     try:
         db.probar_conexion()
         aplicacion = crear_aplicacion(db)
+
         if interactivo:
             aplicacion.consola.ejecutar()
         else:
             for nombre, servicio in aplicacion.servicios.items():
-                print(f"{nombre}: {len(servicio.leer_todos())} registro(s)")
+                cantidad = len(servicio.leer_todos())
+                print(f"{nombre}: {cantidad} registro(s)")
     finally:
         db.cerrar()
 
 
 def ejecutar_desde_terminal() -> None:
-    parser = argparse.ArgumentParser(description="Book Manager - Sprint 2 - Supabase")
-    parser.add_argument("--sin-menu", action="store_true",
-                        help="Comprueba la conexión y muestra los conteos de la base.")
+    parser = argparse.ArgumentParser(
+        description="Book Manager - Sprint 3 - Supabase"
+    )
+    parser.add_argument(
+        "--sin-menu",
+        action="store_true",
+        help="Comprueba la conexión y muestra los conteos de la base.",
+    )
     args = parser.parse_args()
+
     try:
         main(interactivo=not args.sin_menu)
     except SQLAlchemyError:
-        parser.exit(1, "No se pudo iniciar: revisá conexión y tablas de Supabase.\n")
+        parser.exit(
+            1,
+            "No se pudo iniciar: revisá conexión y tablas de Supabase.\n",
+        )
     except (ValueError, OSError) as error:
-        parser.exit(1, f"No se pudo iniciar Book Manager: {error}\n")
+        parser.exit(
+            1,
+            f"No se pudo iniciar Book Manager: {error}\n",
+        )
 
 
 if __name__ == "__main__":

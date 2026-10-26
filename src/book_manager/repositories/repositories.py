@@ -1,7 +1,13 @@
 import abc
+from contextlib import contextmanager
 from datetime import date
 from decimal import Decimal
 from typing import Generic, TypeVar
+
+from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.orm import joinedload
 
 from book_manager.entities.entities import (
     CotizacionDolar,
@@ -14,6 +20,7 @@ from book_manager.entities.entities import (
     Stock,
     TipoCotizacion,
 )
+from book_manager.models import models as m
 
 T = TypeVar("T", bound=EntidadBase)
 
@@ -116,13 +123,6 @@ class IRepositorioCotizacionDolar(abc.ABC):
     def eliminar(self, tipo_id: int, fecha: date) -> bool:
         """Elimina una cotización e indica si la encontró."""
         pass
-
-from contextlib import contextmanager
-from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-from sqlalchemy.orm import joinedload
-from book_manager.models import models as m
-
 
 class RepositorioDB:
     """Operaciones comunes. Cada operación utiliza su propia transacción."""
@@ -298,11 +298,20 @@ class RepositorioCotizacionDolar(RepositorioDB, IRepositorioCotizacionDolar):
     opciones = (joinedload(m.CotizacionDolarModelo.tipo),)
 
     def _valores(self, entidad):
-        return {"tipo_id": entidad.tipo.id, "fecha": entidad.fecha, "valor": entidad.valor}
+        return {
+            "tipo_id": entidad.tipo.id,
+            "fecha": entidad.fecha,
+            "compra": entidad.compra,
+            "venta": entidad.venta,
+        }
 
     def _desde_modelo(self, fila):
-        return CotizacionDolar(TipoCotizacion(fila.tipo.id, fila.tipo.nombre),
-                               fila.fecha, fila.valor)
+        return CotizacionDolar(
+            TipoCotizacion(fila.tipo.id, fila.tipo.nombre),
+            fila.fecha,
+            fila.compra,
+            fila.venta,
+        )
 
     def leer_por_tipo_y_fecha(self, tipo_id, fecha):
         return self._leer((tipo_id, fecha))
@@ -317,13 +326,13 @@ class RepositorioCotizacionDolar(RepositorioDB, IRepositorioCotizacionDolar):
 
     def guardar_lote(self, cotizaciones):
         """Inserta o actualiza todo el lote; ante un error revierte el conjunto."""
-        from sqlalchemy.dialects.postgresql import insert
-
         with self._sesion() as sesion:
             for cotizacion in cotizaciones:
                 sentencia = insert(self.modelo).values(**self._valores(cotizacion))
                 sentencia = sentencia.on_conflict_do_update(
                     index_elements=["tipo_id", "fecha"],
-                    set_={"valor": sentencia.excluded.valor},
+                    set_={
+                        "compra": sentencia.excluded.compra,
+                        "venta": sentencia.excluded.venta,
+                    },
                 )
-                sesion.execute(sentencia)
