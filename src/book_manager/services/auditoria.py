@@ -58,5 +58,14 @@ class ServicioAuditoria:
             .order_by(AuditoriaModelo.fecha.desc(), AuditoriaModelo.id.desc())
             .limit(limite)
         )
+
         with self._conexion.transaccion() as sesion:
-            return list(sesion.scalars(consulta).all())
+            filas = list(sesion.scalars(consulta).all())
+            return [
+                {
+                    "fecha": fila.fecha,
+                    "accion": fila.accion,
+                    "detalles": fila.detalles,
+                }
+                for fila in filas
+            ]
