@@ -7,9 +7,13 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
+from book_manager.services.auditoria import auditar_operaciones
 
+
+@auditar_operaciones
 class ServicioScraping:
-    def __init__(self):
+    def __init__(self, conexion):
+        self._conexion = conexion
         self.raiz = Path(__file__).resolve().parents[3]
         self.proyecto_scrapy = (
             self.raiz / "src" / "book_manager" / "scraper"

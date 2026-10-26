@@ -81,7 +81,7 @@ def crear_aplicacion(
 
     consola = Consola(
         **servicios,
-        scraping=ServicioScraping(),
+        scraping=ServicioScraping(db),
         auditoria=ServicioAuditoria(db),
     )
 
