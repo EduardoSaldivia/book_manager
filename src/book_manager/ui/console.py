@@ -520,7 +520,7 @@ def _banner() -> None:
         ("", ()),
         ("B O O K   M A N A G E R", ("negrita",)),
         ("Grupo 44", ("cian", "negrita")),
-        ("— Sprint 2 —", ("gris",)),
+        ("— Sprint 3 —", ("gris",)),
         ("", ()),
     ):
         print("  " + borde + _estilo(texto.center(interior), *estilos) + borde)
